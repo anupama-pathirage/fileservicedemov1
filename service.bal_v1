@@ -1,5 +1,4 @@
 import ballerina/http;
-import ballerina/xmldata;
 import ballerinax/azure_storage_service.blobs;
 
 configurable string accessKey = ?;
@@ -33,23 +32,6 @@ service /portal on new http:Listener(9090) {
     resource function post employees/[string file](@http:Payload Employee[] employees) returns json|error? {
         blobs:BlobClient blobClient = check createStorageClient();
         return blobClient->putBlob(container, file, "BlockBlob", employees.toJsonString().toBytes());
-    }
-
-    resource function get employees(@http:Header string accept, string file) returns json|xml|http:NotAcceptable|error {
-        blobs:BlobClient blobClient = check createStorageClient();
-        blobs:BlobResult result = check blobClient->getBlob(container, file);
-        string jsonData = check string:fromBytes(result.blobContent);
-        match accept {
-            "application/json" => {
-                return jsonData.fromJsonString();
-            }
-            "application/xml" => {
-                return check xmldata:fromJson(check jsonData.fromJsonString());
-            }
-            _ => {
-                return http:NOT_ACCEPTABLE;
-            }
-        }
     }
 }
 
