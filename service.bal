@@ -26,6 +26,19 @@ type Employee record {
     Personal personal;
 };
 
+type Location record {
+    string street;
+    string zip;
+};
+
+type OutputEmployee record {
+    string empid;
+    string name;
+    int birth;
+    string city;
+    Location location;
+};
+
 # A service representing a network-accessible API
 # bound to port `9090`.
 service /portal on new http:Listener(9090) {
@@ -51,7 +64,29 @@ service /portal on new http:Listener(9090) {
             }
         }
     }
+
+    resource function get convert(string file) returns OutputEmployee[]|error {
+        blobs:BlobClient blobClient = check createStorageClient();
+        blobs:BlobResult result = check blobClient->getBlob(container, file);
+        string jsonData = check string:fromBytes(result.blobContent);
+        json jsonVal = check jsonData.fromJsonString();
+        Employee[] inputEmployee = checkpanic jsonVal.cloneWithType();
+        OutputEmployee[] outputData = transform(inputEmployee);
+        return outputData;
+    }
 }
+
+function transform(Employee[] employee) returns OutputEmployee[] => from var employeeItem in employee
+    select {
+        empid: employeeItem.empid,
+        name: employeeItem.personal.firstname + " " + employeeItem.personal.lastname,
+        birth: employeeItem.personal.birthyear,
+        city: employeeItem.personal.address.city,
+        location: {
+            street: employeeItem.personal.address.streetaddress,
+            zip: employeeItem.personal.address.postalcode
+        }
+    };
 
 function createStorageClient() returns blobs:BlobClient|error {
     blobs:ConnectionConfig blobConnectionConfig = {accessKeyOrSAS: accessKey, accountName: account, authorizationMethod: "accessKey"};

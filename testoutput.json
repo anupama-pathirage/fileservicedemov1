@@ -1,0 +1,22 @@
+[
+    {
+        "empid": "SJ011MS",
+        "name": "Smith Jones",
+        "birth": 1980,
+        "city": "NY",
+        "location": {
+            "street": "724th Street",
+            "zip": "10038"
+        }
+    },
+    {
+        "empid": "SJ012RA",
+        "name": "Anne Thomas",
+        "birth": 1988,
+        "city": "TX",
+        "location": {
+            "street": "12th Street",
+            "zip": "45395"
+        }
+    }
+]

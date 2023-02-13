@@ -1,31 +1,32 @@
-[{
-    "empid": "SJ011MS",
-    "personal": {
-        "firstname": "Smith",
-        "lastname": "Jones",
-        "gender": "Male",
-        "birthyear": 1980,
-        "address": {
-            "streetaddress": "724th Street",
-            "city": "New York",
-            "state": "NY",
-            "postalcode": "10038"
+[
+    {
+        "empid": "SJ011MS",
+        "personal": {
+            "firstname": "Smith",
+            "lastname": "Jones",
+            "gender": "Male",
+            "birthyear": 1980,
+            "address": {
+                "streetaddress": "724th Street",
+                "city": "New York",
+                "state": "NY",
+                "postalcode": "10038"
+            }
+        }
+    },
+    {
+        "empid": "SJ012RA",
+        "personal": {
+            "firstname": "Anne",
+            "lastname": "Thomas",
+            "gender": "Female",
+            "birthyear": 1988,
+            "address": {
+                "streetaddress": "12 Street",
+                "city": "Texas",
+                "state": "TX",
+                "postalcode": "45395"
+            }
         }
     }
-},
-{
-    "empid": "SJ012RA",
-    "personal": {
-        "firstname": "Anne",
-        "lastname": "Thomas",
-        "gender": "Female",
-        "birthyear": 1988,
-        "address": {
-            "streetaddress": "12 Street",
-            "city": "Texas",
-            "state": "TX",
-            "postalcode": "45395"
-        }
-    }
-}
 ]
